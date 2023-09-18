@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Negara;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Provinsi;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class KecamatanController extends Controller
         abort_if(!userCan('kecamatan.view'), 403);
 
         // $kabupatenCategories = Kabupaten::all();
-        $kecamatanCategories = Kecamatan::with('negara', 'kabupaten')->get();
+        $kecamatanCategories = Kecamatan::with('negara', 'provinsi', 'kabupaten')->get();
         // dd($kecamatanCategories);
         $negaraCategories = Negara::all();
         $app_language = Language::latest()->get(['code']);
@@ -30,8 +31,9 @@ class KecamatanController extends Controller
         // Fetch options for select2
         $select2Options = Negara::pluck('name', 'id');
         $select2Options2 = Kabupaten::pluck('name', 'id');
+        $select2OptionsProvinsi = Provinsi::pluck('name', 'id');
 
-        return view('admin.Kecamatan.index', compact('kecamatanCategories', 'negaraCategories', 'app_language', 'select2Options', 'select2Options2'));
+        return view('admin.Kecamatan.index', compact('kecamatanCategories', 'negaraCategories', 'app_language', 'select2Options', 'select2Options2', 'select2OptionsProvinsi'));
     }
 
 
@@ -57,6 +59,7 @@ class KecamatanController extends Controller
         $kabupaten = new Kecamatan();
         $kabupaten->name = $request->input('name'); // Assuming the input field name is 'name'
         $kabupaten->id_negara = $request->input('negara'); // Assuming the input field name is 'name'
+        $kabupaten->id_provinsi = $request->input('provinsi'); // Assuming the input field name is 'name'
         $kabupaten->id_kabupaten = $request->input('kabupaten'); // Assuming the input field name is 'name'
 
         // Save the data

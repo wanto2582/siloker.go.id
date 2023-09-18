@@ -6,6 +6,7 @@ use PDF;
 use Carbon\Carbon;
 use Faker\Factory;
 use App\Models\Negara;
+use App\Models\Provinsi;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use App\Models\cms;
@@ -701,6 +702,7 @@ class CompanyController extends Controller
         $data['contact'] = $data['user']->contactInfo;
         $data['organization_types'] = OrganizationType::all();
         $data['negaras'] = Negara::all();
+        $data['provinsis'] = Provinsi::all();
         $data['kabupatens'] = Kabupaten::all();
         $data['kecamatans'] = Kecamatan::all();
         $data['industry_types'] = IndustryType::all();
@@ -917,6 +919,7 @@ class CompanyController extends Controller
                 'email' => $request->email,
                 'address' => $request->address,
                 'id_negara' => $request->id_negara,
+                'id_provinsi' => $request->id_provinsi,
                 'id_kabupaten' => $request->id_kabupaten,
                 'id_kecamatan' => $request->id_kecamatan,
             ]);
@@ -926,6 +929,7 @@ class CompanyController extends Controller
                 'email' => $request->email,
                 'address' => $request->address,
                 'id_negara' => $request->id_negara,
+                'id_provinsi' => $request->id_provinsi,
                 'id_kabupaten' => $request->id_kabupaten,
                 'id_kecamatan' => $request->id_kecamatan,
             ]);

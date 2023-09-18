@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website;
 
 use Carbon\Carbon;
 use App\Models\Negara;
+use App\Models\Provinsi;
 use App\Models\Kabupaten;
 use App\Models\Kecamatan;
 use App\Models\Job;
@@ -149,6 +150,7 @@ class CandidateController extends Controller
         $educations = Education::all();
         $professions = Profession::all();
         $negaras = Negara::all();
+        $provinsis = Provinsi::all();
         $kabupatens = Kabupaten::all();
         $kecamatans = Kecamatan::all();
         $skills = Skill::all();
@@ -168,6 +170,7 @@ class CandidateController extends Controller
             'skills' => $skills,
             'candidate_languages' => $languages,
             'negaras' => $negaras,
+            'provinsis' => $provinsis,
             'kabupatens' => $kabupatens,
             'kecamatans' => $kecamatans,
         ]);
@@ -404,6 +407,7 @@ class CandidateController extends Controller
                 'secondary_email' => $request->secondary_email,
                 'address' => $request->address,
                 'id_negara' => $request->id_negara,
+                'id_provinsi' => $request->id_provinsi,
                 'id_kabupaten' => $request->id_kabupaten,
                 'id_kecamatan' => $request->id_kecamatan,
             ]);
@@ -415,6 +419,7 @@ class CandidateController extends Controller
                 'secondary_email' => $request->secondary_email,
                 'address' => $request->address,
                 'id_negara' => $request->id_negara,
+                'id_provinsi' => $request->id_provinsi,
                 'id_kabupaten' => $request->id_kabupaten,
                 'id_kecamatan' => $request->id_kecamatan,
             ]);

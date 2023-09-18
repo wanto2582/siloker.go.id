@@ -22,6 +22,7 @@ class ContactInfo extends Model
         'secondary_email',
         'address',
         'id_negara',
+        'id_provinsi',
         'id_kecamatan',
         'id_kabupaten'
     ];

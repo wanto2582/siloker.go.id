@@ -15,6 +15,7 @@
                         <thead>
                             <tr>
                                 <th>{{ __('country') }}</th>
+                                <th>Provinsi</th>
                                 <th>{{ __('name') }}</th>
                                 @if (userCan('kabupaten.update') || userCan('kabupaten.delete'))
                                 <th width="10%">{{ __('action') }}</th>
@@ -25,7 +26,10 @@
                             @forelse ($kabupatenCategories as $category)
                             <tr>
                                 <td>
-                                    <h5>{{ $category->negara->name }}</h5>
+                                    <h5>{{ $category->negara->name ?? '-' }}</h5>
+                                </td>
+                                <td>
+                                    <h5>{{ $category->provinsi->name ?? '-' }}</h5>
                                 </td>
                                 <td>
                                     <h5>{{ $category->name }}</h5>
@@ -75,6 +79,16 @@
                                 <option value="">Pilih Negara</option>
                                 @foreach ($select2OptionsEdit as $value => $text)
                                 <option value="{{ $value }}" {{ $value == $kabupatenEdit->id_negara ? 'selected' : '' }}>{{ $text }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group row col-12">
+                            <label>Provinsi <x-forms.required /></label>
+                            <select name="edit_provinsi" id="edit_provinsi" class="form-control w-100-p">
+                                <option value="">Pilih Provinsi</option>
+                                @foreach ($select2OptionsProvinsiEdit as $value => $text)
+                                <option value="{{ $value }}" {{ $value == $kabupatenEdit->id_provinsi ? 'selected' : '' }}>{{ $text }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -132,6 +146,15 @@
                             <select name="negara" id="negara" class="form-control w-100-p">
                                 <option value="">Pilih Negara</option>
                                 @foreach ($select2Options as $value => $text)
+                                <option value=" {{ $value }}">{{ $text }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group row col-12">
+                            <label>Provinsi <x-forms.required /></label>
+                            <select name="provinsi" id="provinsi" class="form-control w-100-p">
+                                <option value="">Pilih Provinsi</option>
+                                @foreach ($select2OptionsProvinsi as $value => $text)
                                 <option value=" {{ $value }}">{{ $text }}</option>
                                 @endforeach
                             </select>

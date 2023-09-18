@@ -70,6 +70,13 @@
                     </x-admin.sidebar-list>
                     @endif
 
+                    <!-- ======= Profinsi ======== -->
+                    @if (userCan('provinsi.view'))
+                    <x-admin.sidebar-list :linkActive="Request::is('admin/provinsiCategory*') ? true : false" route="provinsiCategory.index" icon="fas fa-globe fa-2">
+                        Provinsi
+                    </x-admin.sidebar-list>
+                    @endif
+
                     <!-- ======= Kabupaten ======== -->
                     @if (userCan('kabupaten.view'))
                     <x-admin.sidebar-list :linkActive="Request::is('admin/kabupatenCategory*') ? true : false" route="kabupatenCategory.index" icon="fas fa-globe fa-2">

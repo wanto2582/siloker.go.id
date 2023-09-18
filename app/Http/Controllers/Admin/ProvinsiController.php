@@ -6,11 +6,10 @@ use App\Models\Negara;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Provinsi;
-use App\Models\Kabupaten;
 use Illuminate\Support\Facades\Auth;
 use Modules\Language\Entities\Language;
 
-class KabupatenController extends Controller
+class ProvinsiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,20 +18,18 @@ class KabupatenController extends Controller
      */
     public function index()
     {
-        abort_if(!userCan('kabupaten.view'), 403);
+        abort_if(!userCan('provinsi.view'), 403);
 
         // $kabupatenCategories = Kabupaten::all();
-        $kabupatenCategories = Kabupaten::with('negara', 'provinsi')->get();
+        $provinsiCategories = Provinsi::with('negara')->get();
         // dd($kabupatenCategories);
         $negaraCategories = Negara::all();
-        $provinsiCategories = Provinsi::all();
         $app_language = Language::latest()->get(['code']);
 
         // Fetch options for select2
         $select2Options = Negara::pluck('name', 'id');
-        $select2OptionsProvinsi = Provinsi::pluck('name', 'id');
 
-        return view('admin.Kabupaten.index', compact('kabupatenCategories', 'negaraCategories', 'provinsiCategories', 'app_language', 'select2Options', 'select2OptionsProvinsi'));
+        return view('admin.Provinsi.index', compact('provinsiCategories', 'negaraCategories', 'app_language', 'select2Options'));
     }
 
 
@@ -45,7 +42,7 @@ class KabupatenController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        abort_if(!userCan('kabupaten.create'), 403);
+        abort_if(!userCan('provinsi.create'), 403);
 
         // dd($request);
 
@@ -55,20 +52,19 @@ class KabupatenController extends Controller
         ]);
 
         // Create a new Negara instance and set the 'name' attribute
-        $kabupaten = new Kabupaten();
-        $kabupaten->name = $request->input('name'); // Assuming the input field name is 'name'
-        $kabupaten->id_provinsi = $request->input('provinsi'); // Assuming the input field name is 'name'
-        $kabupaten->id_negara = $request->input('negara'); // Assuming the input field name is 'name'
+        $provinsi = new Provinsi();
+        $provinsi->name = $request->input('name'); // Assuming the input field name is 'name'
+        $provinsi->id_negara = $request->input('negara'); // Assuming the input field name is 'name'
 
         // Save the data
-        $kabupaten->save();
+        $provinsi->save();
 
         // validation
         // $validate_array = [];
         // $validate_array['name'] = 'required';
         // $this->validate($request, $validate_array);
 
-        flashSuccess(__('Kabupaten telah diinput'));
+        flashSuccess(__('Provinsi telah diinput'));
         return back();
     }
 
@@ -78,20 +74,20 @@ class KabupatenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kabupaten $kabupatenCategory)
+    public function edit(Provinsi $provinsiCategory)
     {
-        // dd($kabupatenCategory);
-        abort_if(!userCan('kabupaten.update'), 403);
-        $kabupatenEdit = $kabupatenCategory;
+        // dd($provinsiCategory);
+        abort_if(!userCan('provinsi.update'), 403);
+        $provinsiEdit = $provinsiCategory;
 
-        $kabupatenCategories = Kabupaten::all();
+        $provinsiCategories = Provinsi::all();
         $negaraCategories = Negara::all();
         $app_language = Language::latest()->get(['code']);
 
         // Fetch options for select2
         $select2OptionsEdit = Negara::pluck('name', 'id');
 
-        return view('admin.kabupaten.index', compact('kabupatenEdit', 'kabupatenCategories', 'negaraCategories', 'app_language', 'select2OptionsEdit'));
+        return view('admin.Provinsi.index', compact('provinsiEdit', 'provinsiCategories', 'negaraCategories', 'app_language', 'select2OptionsEdit'));
     }
 
 
@@ -102,24 +98,24 @@ class KabupatenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kabupaten $kabupatenCategory)
+    public function update(Request $request, Profinsi $provinsiCategory)
     {
-        dd(($kabupatenCategory));
+        dd(($provinsiCategory));
         abort_if(!userCan('negara.update'), 403);
 
 
         // $negara = new Negara();
         // Assuming the input field name is 'name'
-        $kabupatenCategory->id_negara = $request->input('id_negara');
-        $kabupatenCategory->name = $request->input('name');
+        $provinsiCategory->id_negara = $request->input('id_negara');
+        $provinsiCategory->name = $request->input('name');
 
         // Save the changes to the existing Negara record
-        $kabupatenCategory->save();
+        $provinsiCategory->save();
         // dd(($negara->name));
 
         flashSuccess(__('category_updated_successfully'));
         // return back();
-        return redirect()->route('kabupatenCategory.index');
+        return redirect()->route('provinsiCategory.index');
     }
 
     /**
@@ -128,11 +124,11 @@ class KabupatenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Negara $countryCategory)
+    public function destroy(Profinsi $provinsiCategory)
     {
-        abort_if(!userCan('negara.delete'), 403);
+        abort_if(!userCan('provinsi.delete'), 403);
 
-        $countryCategory->delete();
+        $provinsiCategory->delete();
 
         flashSuccess(__('category_deleted_successfully'));
         return back();

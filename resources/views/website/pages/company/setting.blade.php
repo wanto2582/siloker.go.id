@@ -395,7 +395,7 @@
                                                 @enderror
                                             </div>
                                             <div class="row">
-                                                <div class="col-lg-4 mb-3">
+                                                <div class="col-lg-6 mb-6">
                                                     <x-forms.label name="Negara"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <select name="id_negara" class="select2-taggable w-100-p">
@@ -405,7 +405,17 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-4 mb-3">
+                                                <div class="col-lg-6 mb-6">
+                                                    <x-forms.label name="Provinsi"
+                                                        class="body-font-4 d-block text-gray-900 rt-mb-8" />
+                                                    <select name="id_provinsi" class="select2-taggable w-100-p">
+                                                        @foreach ($provinsis as $value)
+                                                        <!-- <option value="{{ $value->id }}" >{{  $value->name }}</option> -->
+                                                            <option value="{{ $value->id }}" @if ($value->id == $contact->id_provinsi) selected @endif>{{ $value->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-6 mb-6">
                                                     <x-forms.label name="Kabupaten"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
                                                     <select name="id_kabupaten" class="select2-taggable w-100-p">
@@ -415,7 +425,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-4 mb-3">
+                                                <div class="col-lg-6 mb-6">
                                                     <x-forms.label name="Kecamatan"
                                                         class="body-font-4 d-block text-gray-900 rt-mb-8" />
                                                         <select name="id_kecamatan" class="select2-taggable w-100-p">
