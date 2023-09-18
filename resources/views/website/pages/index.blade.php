@@ -271,10 +271,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center text-h4 ft-wt-5">
+                <label for="">{{ __('working_process') }}</label>
                     <span class="text-primary-500 has-title-shape">{{ config('app.name') }}
                         <img src="{{ asset('frontend') }}/assets/images/all-img/title-shape.png" alt="">
                     </span>
-                    <label for="">{{ __('working_process') }}</label>
+                    <!-- <label for="">{{ __('working_process') }}</label> -->
                 </div>
             </div>
             <div class="rt-spacer-50"></div>
