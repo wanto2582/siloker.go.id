@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\EmailTemplateController;
 use App\Http\Controllers\Admin\KabupatenController;
 use App\Http\Controllers\Admin\KecamatanController;
+use App\Http\Controllers\Admin\ProvinsiController;
 use App\Http\Controllers\Admin\NegaraController;
 
 Route::prefix('admin')->group(function () {
@@ -93,6 +94,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('jobCategory', JobCategoryController::class)->except('show');
 
         Route::resource('countryCategory', NegaraController::class)->except('show');
+        Route::resource('provinsiCategory', ProvinsiController::class)->except('show');
         Route::resource('kabupatenCategory', KabupatenController::class)->except('show');
         Route::resource('kecamatanCategory', KecamatanController::class)->except('show');
 

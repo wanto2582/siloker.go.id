@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('title')
-Kecamatan
+Provinsi
 @endsection
 @section('content')
 <div class="container-fluid">
@@ -8,42 +8,34 @@ Kecamatan
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title line-height-36">List Kecamatan ({{ count($kecamatanCategories) }})</h3>
+                    <h3 class="card-title line-height-36">List Provinsi ({{ count($provinsiCategories) }})</h3>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
                                 <th>{{ __('country') }}</th>
-                                <th>Provinsi</th>
-                                <th>Kabupaten</th>
                                 <th>{{ __('name') }}</th>
-                                @if (userCan('kecamatan.update') || userCan('kecamatan.delete'))
+                                @if (userCan('provinsi.update') || userCan('provinsi.delete'))
                                 <th width="10%">{{ __('action') }}</th>
                                 @endif
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($kecamatanCategories as $category)
+                            @forelse ($provinsiCategories as $category)
                             <tr>
                                 <td>
                                     <h5>{{ $category->negara->name ?? '-' }}</h5>
                                 </td>
                                 <td>
-                                    <h5>{{ $category->provinsi->name ?? '-' }}</h5>
-                                </td>
-                                <td>
-                                    <h5>{{ $category->kabupaten->name ?? '-' }}</h5>
-                                </td>
-                                <td>
                                     <h5>{{ $category->name }}</h5>
                                 </td>
                                 <td>
-                                    @if (userCan('kecamatan.update'))
-                                    <a href="{{ route('kecamatanCategory.edit', $category->id) }}" class="btn bg-info"><i class="fas fa-edit"></i></a>
+                                    @if (userCan('provinsi.update'))
+                                    <a href="{{ route('provinsiCategory.edit', $category->id) }}" class="btn bg-info"><i class="fas fa-edit"></i></a>
                                     @endif
-                                    @if (userCan('kecamatan.delete'))
-                                    <form action="{{ route('kecamatanCategory.destroy', $category->id) }}" method="POST" class="d-inline">
+                                    @if (userCan('provinsi.delete'))
+                                    <form action="{{ route('kabupatenCategory.destroy', $category->id) }}" method="POST" class="d-inline">
                                         @method('DELETE')
                                         @csrf
                                         <button onclick="return confirm('{{ __('are_you_sure_you_want_to_delete_this_item') }}');" class="btn bg-danger"><i class="fas fa-trash"></i>
@@ -65,15 +57,15 @@ Kecamatan
             </div>
         </div>
         <div class="col-md-4">
-            @if (!empty($kecamatanEdit) && userCan('kecamatan.update'))
+            @if (!empty($provinsiEdit) && userCan('provinsi.update'))
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title line-height-36">{{ __('edit') }} Kecamatan</h3>
-                    <a href="{{ route('kecamatanCategory.index') }}" class="btn bg-primary float-right d-flex align-items-center justify-content-center"><i class="fas fa-plus mr-1"></i>{{ __('create') }}
+                    <h3 class="card-title line-height-36">{{ __('edit') }} Provinsi</h3>
+                    <a href="{{ route('provinsiCategory.index') }}" class="btn bg-primary float-right d-flex align-items-center justify-content-center"><i class="fas fa-plus mr-1"></i>{{ __('create') }}
                     </a>
                 </div>
                 <div class="card-body">
-                    <form class="form-horizontal" action="{{ route('kecamatanCategory.update', $kecamatanEdit->id) }}" method="POST" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="{{ route('provinsiCategory.update', $provinsiEdit->id) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
 
@@ -82,17 +74,7 @@ Kecamatan
                             <select name="edit_negara" id="edit_negara" class="form-control w-100-p">
                                 <option value="">Pilih Negara</option>
                                 @foreach ($select2OptionsEdit as $value => $text)
-                                <option value="{{ $value }}" {{ $value == $kecamatanEdit->id_negara ? 'selected' : '' }}>{{ $text }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group row col-12">
-                            <label>Provinsi <x-forms.required /></label>
-                            <select name="edit_provinsi" id="edit_provinsi" class="form-control w-100-p">
-                                <option value="">Pilih Provinsi</option>
-                                @foreach ($select2OptionsProvinsiEdit as $value => $text)
-                                <option value="{{ $value }}" {{ $value == $kecamatanEdit->id_provinsi ? 'selected' : '' }}>{{ $text }}</option>
+                                <option value="{{ $value }}" {{ $value == $provinsiEdit->id_negara ? 'selected' : '' }}>{{ $text }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -101,7 +83,7 @@ Kecamatan
                             <label for="edit_name">
                                 {{ __('name') }} <x-forms.required />
                             </label>
-                            <input id="edit_name" type="text" name="edit_name" value="{{ old('edit_name', $kecamatanEdit->name) }}" class="form-control @error('edit_name') is-invalid @enderror">
+                            <input id="edit_name" type="text" name="edit_name" value="{{ old('edit_name', $provinsiEdit->name) }}" class="form-control @error('edit_name') is-invalid @enderror">
                             @error('edit_name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -120,14 +102,14 @@ Kecamatan
 
             </div>
             @endif
-            @if (empty($kecamatanEdit) && userCan('kecamatan.create'))
+            @if (empty($provinsiEdit) && userCan('provinsi.create'))
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title line-height-36">{{ __('add') }} Kecamatan</h3>
+                    <h3 class="card-title line-height-36">{{ __('add') }} Provinsi</h3>
                 </div>
                 <div class="card-body">
-                    @if (userCan('kecamatan.create'))
-                    <form class="form-horizontal" action="{{ route('kecamatanCategory.store') }}" method="POST" enctype="multipart/form-data">
+                    @if (userCan('provinsi.create'))
+                    <form class="form-horizontal" action="{{ route('provinsiCategory.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <!-- <div class="form-group row">
                             <label for="negara">
@@ -150,24 +132,6 @@ Kecamatan
                             <select name="negara" id="negara" class="form-control w-100-p">
                                 <option value="">Pilih Negara</option>
                                 @foreach ($select2Options as $value => $text)
-                                <option value=" {{ $value }}">{{ $text }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group row col-12">
-                            <label>Provinsi<x-forms.required /></label>
-                            <select name="provinsi" id="provinsi" class="form-control w-100-p">
-                                <option value="">Pilih Provinsi</option>
-                                @foreach ($select2OptionsProvinsi as $value => $text)
-                                <option value=" {{ $value }}">{{ $text }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group row col-12">
-                            <label>Kabupaten <x-forms.required /></label>
-                            <select name="kabupaten" id="kabupaten" class="form-control w-100-p">
-                                <option value="">Pilih Kabupaten</option>
-                                @foreach ($select2Options2 as $value => $text)
                                 <option value=" {{ $value }}">{{ $text }}</option>
                                 @endforeach
                             </select>

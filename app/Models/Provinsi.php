@@ -10,36 +10,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 
-class Kecamatan extends Model
+class Provinsi extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    protected $table = 'loc_kecamatan';
+    protected $table = 'loc_provinsi';
 
     // public $translatedAttributes = ['name'];
 
     protected $fillable = [
         'id',
         'id_negara',
-        'id_provinsi',
-        'id_kabupaten',
         'name',
     ];
 
     public function negara()
     {
         return $this->belongsTo(Negara::class, 'id_negara', 'id'); // Assuming 'negara_id' is the foreign key column in the 'loc_kabupaten' table
-    }
-
-    public function provinsi()
-    {
-        return $this->belongsTo(Provinsi::class, 'id_provinsi', 'id'); // Assuming 'negara_id' is the foreign key column in the 'loc_kabupaten' table
-    }
-
-    public function kabupaten()
-    {
-        return $this->belongsTo(Kabupaten::class, 'id_kabupaten', 'id'); // Assuming 'negara_id' is the foreign key column in the 'loc_kabupaten' table
     }
 }

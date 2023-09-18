@@ -23,11 +23,17 @@ class Kabupaten extends Model
     protected $fillable = [
         'id',
         'id_negara',
+        'id_provinsi',
         'name',
     ];
 
     public function negara()
     {
         return $this->belongsTo(Negara::class, 'id_negara', 'id'); // Assuming 'negara_id' is the foreign key column in the 'loc_kabupaten' table
+    }
+
+    public function provinsi()
+    {
+        return $this->belongsTo(Provinsi::class, 'id_provinsi', 'id'); // Assuming 'negara_id' is the foreign key column in the 'loc_kabupaten' table
     }
 }
