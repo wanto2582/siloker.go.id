@@ -425,7 +425,7 @@
                         </div>
                     </div>
                     <div class="rt-spacer-40 "></div>
-                    <div class="row">
+                    <!-- <div class="row">
                         @foreach ($top_companies as $company)
                             <div class="col-xl-4 col-md-6 fade-in-bottom  condition_class rt-mb-24">
                                 <div class="card jobcardStyle1">
@@ -481,7 +481,7 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div>
+                    </div> -->
                 </div>
             </section>
         @endif
