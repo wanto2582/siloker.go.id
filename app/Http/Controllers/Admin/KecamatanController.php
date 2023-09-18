@@ -31,7 +31,7 @@ class KecamatanController extends Controller
         $select2Options = Negara::pluck('name', 'id');
         $select2Options2 = Kabupaten::pluck('name', 'id');
 
-        return view('admin.kecamatan.index', compact('kecamatanCategories', 'negaraCategories', 'app_language', 'select2Options', 'select2Options2'));
+        return view('admin.Kecamatan.index', compact('kecamatanCategories', 'negaraCategories', 'app_language', 'select2Options', 'select2Options2'));
     }
 
 
