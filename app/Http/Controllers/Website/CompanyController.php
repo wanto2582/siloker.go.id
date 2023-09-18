@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Website;
 use PDF;
 use Carbon\Carbon;
 use Faker\Factory;
+use App\Models\Negara;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
 use App\Models\cms;
 use App\Models\Job;
 use App\Models\Tag;
@@ -697,6 +700,9 @@ class CompanyController extends Controller
         $data['socials'] = $data['user']->socialInfo;
         $data['contact'] = $data['user']->contactInfo;
         $data['organization_types'] = OrganizationType::all();
+        $data['negaras'] = Negara::all();
+        $data['kabupatens'] = Kabupaten::all();
+        $data['kecamatans'] = Kecamatan::all();
         $data['industry_types'] = IndustryType::all();
         $data['team_sizes'] = TeamSize::all();
         // dd($data);
@@ -720,6 +726,7 @@ class CompanyController extends Controller
 
     public function settingUpdateInformaton(Request $request)
     {
+        // dd($request);
         $user = User::findOrFail(auth()->id());
         $request->session()->put('type', $request->type);
 
@@ -909,12 +916,18 @@ class CompanyController extends Controller
                 'phone' => $request->phone,
                 'email' => $request->email,
                 'address' => $request->address,
+                'id_negara' => $request->id_negara,
+                'id_kabupaten' => $request->id_kabupaten,
+                'id_kecamatan' => $request->id_kecamatan,
             ]);
         } else {
             $contact->update([
                 'phone' => $request->phone,
                 'email' => $request->email,
                 'address' => $request->address,
+                'id_negara' => $request->id_negara,
+                'id_kabupaten' => $request->id_kabupaten,
+                'id_kecamatan' => $request->id_kecamatan,
             ]);
         }
         // =========== Location ===========

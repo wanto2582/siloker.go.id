@@ -30,6 +30,9 @@ use App\Http\Controllers\Admin\CandidateLanguageController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 use App\Http\Controllers\Admin\EmailTemplateController;
+use App\Http\Controllers\Admin\KabupatenController;
+use App\Http\Controllers\Admin\KecamatanController;
+use App\Http\Controllers\Admin\NegaraController;
 
 Route::prefix('admin')->group(function () {
     /**
@@ -89,6 +92,10 @@ Route::prefix('admin')->group(function () {
         //JobCategory Route resource
         Route::resource('jobCategory', JobCategoryController::class)->except('show');
 
+        Route::resource('countryCategory', NegaraController::class)->except('show');
+        Route::resource('kabupatenCategory', KabupatenController::class)->except('show');
+        Route::resource('kecamatanCategory', KecamatanController::class)->except('show');
+
         //job Route resource
         Route::resource('job', JobController::class);
         Route::put('job/change/status/{job}', [JobController::class, 'jobStatusChange'])->name('admin.job.status.change');
@@ -118,7 +125,7 @@ Route::prefix('admin')->group(function () {
         Route::post('tags/status/change/{tag}', [TagController::class, 'statusChange'])->name('tags.status.change');
 
         // About Page
-        Route::controller(CmsController::class)->group(function(){
+        Route::controller(CmsController::class)->group(function () {
             Route::get('settings/delete/about/logo/{name}', 'aboutLogoDelete')->name('settings.aboutLogo.delete');
             Route::put('settings/about', 'aboutupdate')->name('settings.aboutupdate');
             Route::put('settings/others', 'othersupdate')->name('settings.others.update');

@@ -22,7 +22,7 @@ class JobCategoryController extends Controller
         $jobCategories = JobCategory::all();
         $app_language = Language::latest()->get(['code']);
 
-        return view('admin.JobCategory.index', compact('jobCategories','app_language'));
+        return view('admin.JobCategory.index', compact('jobCategories', 'app_language'));
     }
 
     /**
@@ -38,8 +38,8 @@ class JobCategoryController extends Controller
         // validation
         $app_language = Language::latest()->get(['code']);
         $validate_array = [];
-        foreach($app_language as $language){
-            $validate_array['name_'. $language->code] = 'required|string|max:255';
+        foreach ($app_language as $language) {
+            $validate_array['name_' . $language->code] = 'required|string|max:255';
         }
         $validate_array['image'] = 'nullable|image|max:1024';
         $validate_array['icon'] = 'required';
@@ -54,8 +54,8 @@ class JobCategoryController extends Controller
         }
         $category->save();
 
-        foreach($request->except(['_token','icon','image']) as $key => $value){
-            $category->translateOrNew(str_replace("name_","",$key))->name = $value;
+        foreach ($request->except(['_token', 'icon', 'image']) as $key => $value) {
+            $category->translateOrNew(str_replace("name_", "", $key))->name = $value;
             $category->save();
         }
 
@@ -71,12 +71,13 @@ class JobCategoryController extends Controller
      */
     public function edit(JobCategory $jobCategory)
     {
+        // dd(($jobCategory));
         abort_if(!userCan('job_category.update'), 403);
 
         $jobCategories = JobCategory::all();
         $app_language = Language::latest()->get(['code']);
 
-        return view('admin.JobCategory.index', compact('jobCategory', 'jobCategories','app_language'));
+        return view('admin.JobCategory.index', compact('jobCategory', 'jobCategories', 'app_language'));
     }
 
     /**
@@ -90,28 +91,28 @@ class JobCategoryController extends Controller
     {
         abort_if(!userCan('job_category.update'), 403);
 
-         // validation
-         $app_language = Language::latest()->get(['code']);
-         $validate_array = [];
-         foreach($app_language as $language){
-             $validate_array['name_'. $language->code] = 'required|string|max:255';
-         }
-         $validate_array['image'] = 'nullable|image|max:1024';
-         $validate_array['icon'] = 'required';
-         $this->validate($request, $validate_array);
+        // validation
+        $app_language = Language::latest()->get(['code']);
+        $validate_array = [];
+        foreach ($app_language as $language) {
+            $validate_array['name_' . $language->code] = 'required|string|max:255';
+        }
+        $validate_array['image'] = 'nullable|image|max:1024';
+        $validate_array['icon'] = 'required';
+        $this->validate($request, $validate_array);
 
-         // saving the data
-         if ($request->hasFile('image')) {
-             $image = uploadFileToPublic($request->image, 'images/jobCategory');
-             $jobCategory->image = $image;
-         }
-         $jobCategory->icon = $request->icon;
-         $jobCategory->save();
+        // saving the data
+        if ($request->hasFile('image')) {
+            $image = uploadFileToPublic($request->image, 'images/jobCategory');
+            $jobCategory->image = $image;
+        }
+        $jobCategory->icon = $request->icon;
+        $jobCategory->save();
 
-         foreach($request->except(['_token','icon','image','_method']) as $key => $value){
-             $jobCategory->translateOrNew(str_replace("name_","",$key))->name = $value;
-             $jobCategory->save();
-         }
+        foreach ($request->except(['_token', 'icon', 'image', '_method']) as $key => $value) {
+            $jobCategory->translateOrNew(str_replace("name_", "", $key))->name = $value;
+            $jobCategory->save();
+        }
 
         flashSuccess(__('category_updated_successfully'));
         return back();

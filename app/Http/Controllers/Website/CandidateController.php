@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Website;
 
 use Carbon\Carbon;
+use App\Models\Negara;
+use App\Models\Kabupaten;
+use App\Models\Kecamatan;
 use App\Models\Job;
 use App\Models\User;
 use App\Models\Skill;
@@ -145,6 +148,9 @@ class CandidateController extends Controller
         $experiences = Experience::all();
         $educations = Education::all();
         $professions = Profession::all();
+        $negaras = Negara::all();
+        $kabupatens = Kabupaten::all();
+        $kecamatans = Kecamatan::all();
         $skills = Skill::all();
         $languages = CandidateLanguage::all(['id', 'name']);
 
@@ -161,6 +167,9 @@ class CandidateController extends Controller
             'resumes' => $resumes,
             'skills' => $skills,
             'candidate_languages' => $languages,
+            'negaras' => $negaras,
+            'kabupatens' => $kabupatens,
+            'kecamatans' => $kecamatans,
         ]);
     }
 
@@ -393,6 +402,10 @@ class CandidateController extends Controller
                 'secondary_phone' => $request->secondary_phone,
                 'email' => $request->email,
                 'secondary_email' => $request->secondary_email,
+                'address' => $request->address,
+                'id_negara' => $request->id_negara,
+                'id_kabupaten' => $request->id_kabupaten,
+                'id_kecamatan' => $request->id_kecamatan,
             ]);
         } else {
             $contact->update([
@@ -400,6 +413,10 @@ class CandidateController extends Controller
                 'secondary_phone' => $request->secondary_phone,
                 'email' => $request->email,
                 'secondary_email' => $request->secondary_email,
+                'address' => $request->address,
+                'id_negara' => $request->id_negara,
+                'id_kabupaten' => $request->id_kabupaten,
+                'id_kecamatan' => $request->id_kecamatan,
             ]);
         }
 

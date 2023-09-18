@@ -20,6 +20,9 @@ class ContactInfo extends Model
         'secondary_phone',
         'email',
         'secondary_email',
-        'address'
+        'address',
+        'id_negara',
+        'id_kecamatan',
+        'id_kabupaten'
     ];
 }
