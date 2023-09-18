@@ -182,10 +182,10 @@
                                                 href="{{ route('company.myjob') }}">{{ __('my_jobs') }}</a>
                                         </li>
                                         <li>
-                                            <a class="{{ linkActive('website.plan', 'text-primary active') }}"
+                                            <!-- <a class="{{ linkActive('website.plan', 'text-primary active') }}"
                                                 href="{{ route('website.plan') }}">
                                                 {{ __('pricing') }}
-                                            </a>
+                                            </a> -->
                                         </li>
                                     </ul>
                                     <div class="tw-mb-post-job">
@@ -253,10 +253,10 @@
                                     </li>
                                     @guest
                                         <li>
-                                            <a class="{{ linkActive('website.plan', 'text-primary active') }}"
+                                            <!-- <a class="{{ linkActive('website.plan', 'text-primary active') }}"
                                                 href="{{ route('website.plan') }}">
                                                 {{ __('pricing') }}
-                                            </a>
+                                            </a> -->
                                         </li>
                                         <div class="mbl-btn d-flex">
                                             <a href="{{ route('register') }}"
