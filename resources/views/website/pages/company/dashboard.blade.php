@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <h5>@lang('remaining_features_on_current_plan')</h5>
                             <div class="col-xl-3 col-lg-6 col-md-6">
                                 <div class="single-feature-box bg-success-50">
@@ -100,7 +100,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="recently-applied-wrap d-flex justify-content-between align-items-center rt-mb-15">
                             <h3 class="f-size-16">{{ __('recent_jobs') }}</h3>
                             <a class="view-all text-gray-500 f-size-16 d-flex align-items-center"
