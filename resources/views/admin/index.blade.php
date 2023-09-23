@@ -32,18 +32,22 @@
         <div class="clearfix hidden-md-up"></div> --}}
         <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
+                <span class="info-box-icon bg-warning elevation-1">
+                    <a href="{{ route('candidate.index') }}"><i class="fas fa-users">
+                    </a></i></span>
+                
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('total_candidates') }}</span>
                     <span class="info-box-number"> {{ $data['candidates'] }}</span>
-                </div>
+                </div> 
             </div>
         </div>
 
         <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+                <span class="info-box-icon bg-info elevation-1">
+                <a href="{{ route('company.index') }}">
+                    <i class="fas fa-users"></a></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('total_employers') }}</span>
@@ -63,7 +67,10 @@
         </div>
         <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-briefcase"></i></span>
+                <span class="info-box-icon bg-success elevation-1">
+                    <a href="{{ route('job.index') }}">
+                    <i class="fas fa-briefcase">
+                    </a></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('active_jobs') }}</span>
@@ -93,7 +100,10 @@
         </div>
         <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-briefcase"></i></span>
+                <span class="info-box-icon bg-info elevation-1">
+                <a href="{{ route('job.index') }}">
+                    <i class="fas fa-briefcase">
+                    </a></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">{{ __('all_jobs') }}</span>
