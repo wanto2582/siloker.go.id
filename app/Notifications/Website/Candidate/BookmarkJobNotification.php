@@ -59,9 +59,9 @@ class BookmarkJobNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => ucfirst($this->user->name) . ' has bookmarked your job',
+            'title' => ucfirst($this->user->name) . ' telah menandai LoKer Anda',
             'url' => route('website.job.details', $this->job->slug),
-            'title2' => 'You have bookmarked a job',
+            'title2' => 'Anda telah menandai suatu LoKer',
             'url2' => route('website.job.details', $this->job->slug)
         ];
     }

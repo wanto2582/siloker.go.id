@@ -43,9 +43,9 @@ class EditApproveNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
+            ->line('Pengantar notifikasi.')
             ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->line('Terima kasih telah menggunakan aplikasi kami!');
     }
 
     /**
@@ -57,7 +57,7 @@ class EditApproveNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Your job has been edited and waiting for admin approval your changes.',
+            'title' => 'LoKer Anda telah diedit dan menunggu persetujuan admin perubahan Anda.',
             'url' => route('website.job.details', $this->job->slug)
         ];
     }

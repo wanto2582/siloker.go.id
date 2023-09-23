@@ -98,11 +98,11 @@
                                 </button>
                             </form>
                             @php
-                                $google = config('zakirsoft.google_active') && config('zakirsoft.google_id') && config('zakirsoft.google_secret');
-                                $facebook = config('zakirsoft.facebook_active') && config('zakirsoft.facebook_id') && config('zakirsoft.facebook_secret');
-                                $twitter = config('zakirsoft.twitter_active') && config('zakirsoft.twitter_id') && config('zakirsoft.twitter_secret');
-                                $linkedin = config('zakirsoft.linkedin_active') && config('zakirsoft.linkedin_id') && config('zakirsoft.linkedin_secret');
-                                $github = config('zakirsoft.github_active') && config('zakirsoft.github_id') && config('zakirsoft.github_secret');
+                                $google = config('smartmediaindonesia.google_active') && config('smartmediaindonesia.google_id') && config('smartmediaindonesia.google_secret');
+                                $facebook = config('smartmediaindonesia.facebook_active') && config('smartmediaindonesia.facebook_id') && config('smartmediaindonesia.facebook_secret');
+                                $twitter = config('smartmediaindonesia.twitter_active') && config('smartmediaindonesia.twitter_id') && config('smartmediaindonesia.twitter_secret');
+                                $linkedin = config('smartmediaindonesia.linkedin_active') && config('smartmediaindonesia.linkedin_id') && config('smartmediaindonesia.linkedin_secret');
+                                $github = config('smartmediaindonesia.github_active') && config('smartmediaindonesia.github_id') && config('smartmediaindonesia.github_secret');
                             @endphp
                             <div>
                                 @if ($google || $facebook || $twitter || $linkedin || $github)

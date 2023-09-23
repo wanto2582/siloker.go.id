@@ -66,7 +66,7 @@ class NewJobAvailableNotification extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'title' => 'A new job is available for approval',
+            'title' => 'Loker baru tersedia untuk disetujui',
             'url' => route('job.index', ['title' => $this->job->title]),
         ];
     }

@@ -57,7 +57,7 @@ class RelatedJobNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'New job posted suiting your profile',
+            'title' => 'LoKer baru diposting sesuai dengan profil Anda',
             'url' => route('website.job.details', $this->job->slug)
         ];
     }

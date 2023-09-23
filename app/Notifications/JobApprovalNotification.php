@@ -58,7 +58,7 @@ class JobApprovalNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'Admin has approved your job. Your job is live now.',
+            'title' => 'Admin telah menyetujui LoKer Anda. Loker Anda sedang aktif sekarang.',
             'url' => route('website.job.details', $this->job->slug)
         ];
     }

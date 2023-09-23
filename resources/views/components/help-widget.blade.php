@@ -11,26 +11,7 @@
             <div class="help-menu">
                 <ul>
                     <li> <a href="https://smartmediaindonesia.com/"> {{ __('help_and_support') }} </a> </li>
-<<<<<<< HEAD
-                    <!-- <li> <a href="https://smartmediaindonesia.com/"> {{ __('documentation') }} </a> </li>
-                    <li> <a href="https://smartmediaindonesia.com/"> {{ __('product_roadmap') }} </a> </li>
-                    <li> <a href="https://smartmediaindonesia.com/"> {{ __('give_feedback') }} </a> </li> -->
-=======
-                    <!-- <li> <a href="https://smartmediaindonesia.com/"> {{ __('documentation') }} </a> </li> -->
-                    <!-- <li> <a href="https://smartmediaindonesia.com/"> {{ __('product_roadmap') }} </a> </li> -->
-                    <!-- <li> <a href="https://smartmediaindonesia.com/"> {{ __('give_feedback') }} </a> </li> -->
->>>>>>> 0c355b0798f411525ca9fb5557a50444f845c9b0
                 </ul>
-                <!-- <hr> -->
-                <!-- <ul>
-                    <li><a href="https://smartmediaindonesia.com/">{{ __('about_us') }}</a></li>
-                    <li><a href="https://smartmediaindonesia.com/">{{ __('hire_us') }}</a></li>
-                </ul> -->
-<<<<<<< HEAD
-                <hr>
-=======
-                <!-- <hr> -->
->>>>>>> 0c355b0798f411525ca9fb5557a50444f845c9b0
                 <ul>
                     <li><a href="https://smartmediaindonesia.com/">{{ __('developed_by_templatecookie') }}</a> </li>
                 </ul>

@@ -55,7 +55,7 @@ class JobDeletedNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => 'A job has been deleted',
+            'title' => 'Sebuah LoKer telah dihapus',
             'url' => 'javascript:void(0)'
         ];
     }

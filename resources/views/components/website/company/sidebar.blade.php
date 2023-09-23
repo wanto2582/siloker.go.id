@@ -96,7 +96,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('company.plan') }}" class="{{ linkActive('company.plan') }}">
+                <!-- <a href="{{ route('company.plan') }}" class="{{ linkActive('company.plan') }}">
                     <span class="button-content-wrapper tw-items-center">
                         <span class="button-icon align-icon-left tw-flex tw-items-center">
                             <i class="ph-notebook"></i>
@@ -105,7 +105,7 @@
                             {{ __('plans_billing') }}
                         </span>
                     </span>
-                </a>
+                </a> -->
             </li>
 
             <li>

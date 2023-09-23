@@ -66,7 +66,7 @@ class NewEditedJobAvailableNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => __('A new edited job is available for approval'),
+            'title' => __('Loker baru yang telah diedit tersedia untuk disetujui'),
             'url' => url("edited/job/list", ['title' => $this->job->title]),
         ];
     }

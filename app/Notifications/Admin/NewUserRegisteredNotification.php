@@ -69,7 +69,7 @@ class NewUserRegisteredNotification extends Notification
         $url = $this->user->role == 'company' ? route('company.show', [$this->user->company->id]) : route('candidate.show', [$this->user->candidate->id]);
 
         return [
-            'title' => 'A ' . ucfirst($this->user->role) . ' registered recently',
+            'title' => 'User ' . ucfirst($this->user->role) . ' Terdaftar baru-baru ini',
             'url' => $url,
         ];
     }

@@ -58,11 +58,11 @@ class ApplyJobNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'title' => ucfirst($this->user->name) . ' has applied your job',
+            'title' => ucfirst($this->user->name) . ' telah melamar Loker Anda',
             'url' => route('company.myjob'),
-            'title2' => 'You have applied the job of ' . $this->company->name,
+            'title2' => 'Anda telah melamar pekerjaan ' . $this->company->name,
             'url2' => route('company.myjob'),
-            'title3' => 'Your employment status has been accepted by the ' . $this->company->name . 'company.',
+            'title3' => 'Status pekerjaan Anda telah diterima oleh ' . $this->company->name . 'company.',
             'url3' => route('company.myjob'),
         ];
     }

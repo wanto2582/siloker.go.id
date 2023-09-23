@@ -71,7 +71,7 @@ class CandidateCreateApprovalPendingNotification extends Notification
         $url = $this->user->role == 'company' ? route('company.show', [$this->user->company->id]) : route('candidate.show', [$this->user->candidate->id]);
 
         return [
-            'title' => 'A ' . ucfirst($this->user->role) . ' registered recently',
+            'title' => 'User ' . ucfirst($this->user->role) . ' terdaftar baru-baru ini',
             'url' => $url,
         ];
     }
