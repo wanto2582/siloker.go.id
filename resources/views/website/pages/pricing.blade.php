@@ -68,7 +68,7 @@
                     <div class="col-12">
                         <div class="rt-spacer-100 rt-spacer-md-50"></div>
                         <h4 class="rt-mb-18">
-                            {{ __('choose_plan') }}
+                           {{ __('choose_plan') }}
                         </h4>
                         <div class="body-font-3 text-gray-500 rt-mb-24 max-474 d-inline-block">
                             {{ __('choose_plan_description') }}
@@ -80,7 +80,7 @@
                 <div class="row">
                     @forelse ($plans as $plan)
                         @if ($plan->frontend_show)
-                            <div class="col-xl-4 col-lg-4 col-md-6 rt-mb-24">
+                            <!-- <div class="col-xl-4 col-lg-4 col-md-6 rt-mb-24">
                                 <div class="single-price-table mb-4 mb-md-0 {{ $plan->recommended ? 'active' : '' }}">
                                     <div class="price-header">
                                         <h6 class="rt-mb-10">{{ $plan->label }}</h6>
@@ -128,7 +128,7 @@
                                                 </span>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                     <div class="price-footer">
                                         @auth('user')
                                             @if ($plan->price == 0)
