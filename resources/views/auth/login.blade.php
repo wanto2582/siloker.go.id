@@ -285,6 +285,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="card-body">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="no_hp">{{ __('Nomor HP') }}</label>
+                                        <input type="text" name="no_hp" class="form-control rounded" id="no_hp" placeholder="{{ __('Masukan No. Hp') }}">
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="card-footer d-flex justify-content-between">
                                 <a href="{{ route('login') }}" class="close btn btn-danger">
                                     <div class="button-content-wrapper ">

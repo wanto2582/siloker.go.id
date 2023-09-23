@@ -74,6 +74,7 @@ class SocialLoginController extends Controller
         $user = User::create([
             'name' => $socialiteUserName,
             'email' => $email,
+            'no_hp' => $request->no_hp,
             'username' => Str::slug($socialiteUserName) . '_' . Str::random(5),
             'image' => $socialiteUserimage,
             'provider' => $provider,
