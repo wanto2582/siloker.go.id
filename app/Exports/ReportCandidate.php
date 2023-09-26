@@ -131,6 +131,13 @@ class ReportCandidate implements FromView, WithHeadings, WithEvents
     public function view(): View
     {
         // dd($this->data);
+        // $content = view('admin.export.report_candidate', [
+        //     'data' => $this->data,
+        //     'filter' => $this->filter
+        // ])->render();
+        // echo "<pre>";
+        // print_r($content);
+        // die;
         return view('admin.export.report_candidate', [
             'data' => $this->data,
             'filter' => $this->filter

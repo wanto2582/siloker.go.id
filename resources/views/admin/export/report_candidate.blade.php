@@ -86,14 +86,23 @@
         @foreach($data as $item => $value)
         <tr>
             <td>{{($item+1)}}</td>
-            <td>{{$value->name}}</td>
-            <td>{{$value->phone}}</td>
-            <td>{{($value->secondary_phone ? $value->secondary_phone : '-')}}</td>
-            <td>{{$value->email}}</td>
-            <td>{{($value->secondary_email ? $value->secondary_email : '-')}}</td>
-            <td>{{$value->kelamin}}</td>
+            <td>{{$value->user->name}}</td>
+            <td>{{($value->contactInfo->phone ? $value->contactInfo->phone : '-')}}</td>
+            <td>{{($value->contactInfo->secondary_phone ? $value->contactInfo->secondary_phone : '-')}}</td>
+            <td>{{($value->contactInfo->email ? $value->contactInfo->email : '-')}}</td>
+            <td>{{($value->contactInfo->secondary_email ? $value->contactInfo->secondary_email : '-')}}</td>
+            <td>
+                @if ($value->gender == 'male')
+                    Laki-laki
+                @elseif ($value->gender == 'female')
+                    Perempuan
+                @else
+                    -
+                @endif
+            </td>
+
             <td>{{$value->birth_date}}</td>
-            <td>{{$value->address}}</td>
+            <td>{{$value->contactInfo->address}}</td>
         </tr>
         @endforeach
     </tbody>

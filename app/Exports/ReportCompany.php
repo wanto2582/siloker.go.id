@@ -131,6 +131,14 @@ class ReportCompany implements FromView, WithHeadings, WithEvents
     public function view(): View
     {
         // dd($this->data);
+        // $content = view('admin.export.report_company', [
+        //     'data' => $this->data,
+        //     'filter' => $this->filter
+        // ])->render();
+        // echo "<pre>";
+        // print_r($content);
+        // die;
+        // dd($this->data);
         return view('admin.export.report_company', [
             'data' => $this->data,
             'filter' => $this->filter
