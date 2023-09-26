@@ -337,7 +337,6 @@
             download: "{{route('download_report_company')}}"
         };
         $(document).on('click', '.submit-download', function(e) {
-
             let
             nama_pelamar = $('#keyword').val(),
                 ev_status = $('#ev_status').val(),

@@ -96,7 +96,6 @@
                                 @endforeach
                             </select>
                         </div>
-
                 </form>
 
                 {{-- Table  --}}
