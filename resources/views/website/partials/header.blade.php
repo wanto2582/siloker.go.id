@@ -493,13 +493,19 @@
                         @endif
                     </div>
                     <div class="mobile-menu">
+                    <div class="container position-relative">
+                        <div class="d-flex">
+                        <b><marquee>Sistem Informasi Lowongan Kerja ( SiLoKer ) . Disnaker Kabupaten Tapanuli Selatan</marquee></b>
                         <div class="menu-click">
+                        
                             <button class="effect1">
                                 <span></span>
                             </button>
                         </div>
                     </div>
                 </div>
+            </div>
+            </div>
             </div>
         </div>
         <!-- End Header top -->

@@ -23,9 +23,9 @@
                             <div class="application-wrapper-top">
                                 <h2 class="title">{{ __('applications') }}</h2>
                                 <div class="filter-sort">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newColumnModal">
+                                    <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newColumnModal">
                                         {{ __('create_new') }}
-                                    </button>
+                                    </button> -->
                                     <a href="{{ route('company.myjob') }}" class="btn">
                                         {{ __('back') }}
                                     </a>
