@@ -37,7 +37,7 @@
 
 <table>
     <tr>
-        <td rowspan="2" colspan="9" style="text-align: center; font-weight: bold; font-size: 20pt">
+        <td rowspan="2" colspan="13" style="text-align: center; font-weight: bold; font-size: 20pt">
             <h1>LIST - PERUSAHAAN</h1>
         </td>
     </tr>
@@ -79,6 +79,10 @@
             <th class="">Tanggal Pendirian</th>
             <th class="">Tempat</th>
             <th class="">Alamat</th>
+            <th class="">Kecamatan</th>
+            <th class="">Kabupaten</th>
+            <th class="">Provinsi</th>
+            <th class="">Negara</th>
         </tr>
     </thead>
 
@@ -94,6 +98,10 @@
             <td>{{ date('Y-m-d', strtotime($value->establishment_date)) }}</td>
             <td>{{$value->place}}</td>
             <td>{{$value->contactInfo->address}}</td>
+            <td>{{$value->contactInfo->kecamatan->name}}</td>
+            <td>{{$value->contactInfo->kabupaten->name}}</td>
+            <td>{{$value->contactInfo->provinsi->name}}</td>
+            <td>{{$value->contactInfo->negara->name}}</td>
         </tr>
         @endforeach
     </tbody>

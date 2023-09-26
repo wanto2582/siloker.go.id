@@ -53,12 +53,12 @@ class ReportCandidate implements FromView, WithHeadings, WithEvents
                 $columnStart = 'A';
                 $rowStart = 5;
 
-                $columnEnd = 'I';
+                $columnEnd = 'M';
                 //                $rowEnd = $rowStart + ($this->data->count() + 1);
                 $rowEnd = $rowStart + (count($this->data) + 1);
 
 
-                $cellRange = 'A2:I2'; // All headers
+                $cellRange = 'A2:M2'; // All headers
 
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setName('Calibri');
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);

@@ -37,7 +37,7 @@
 
 <table>
     <tr>
-        <td rowspan="2" colspan="9" style="text-align: center; font-weight: bold; font-size: 20pt">
+        <td rowspan="2" colspan="13" style="text-align: center; font-weight: bold; font-size: 20pt">
             <h1>LIST - PEKERJA</h1>
         </td>
     </tr>
@@ -79,6 +79,10 @@
             <th class="">Gender</th>
             <th class="">Tgl Lahir</th>
             <th class="">Alamat</th>
+            <th class="">Kecamatan</th>
+            <th class="">Kabupaten</th>
+            <th class="">Provinsi</th>
+            <th class="">Negara</th>
         </tr>
     </thead>
 
@@ -103,6 +107,10 @@
 
             <td>{{$value->birth_date}}</td>
             <td>{{$value->contactInfo->address}}</td>
+            <td>{{$value->contactInfo->kecamatan->name}}</td>
+            <td>{{$value->contactInfo->kabupaten->name}}</td>
+            <td>{{$value->contactInfo->provinsi->name}}</td>
+            <td>{{$value->contactInfo->negara->name}}</td>
         </tr>
         @endforeach
     </tbody>
