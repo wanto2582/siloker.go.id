@@ -16,7 +16,7 @@
                                 </a>
                             @endif
                             @if (request('keyword') || request('ev_status') || request('sort_by'))
-                                <a href="{{ route('company.index') }}" class="btn bg-danger"><i
+                                <a href="{{ route('candidate.index') }}" class="btn bg-danger"><i
                                         class="fas fa-times"></i>&nbsp; {{ __('clear') }}
                                 </a>
                             @endif
@@ -34,20 +34,20 @@
                     <div class="card-body border-bottom row">
                         <div class="col-4">
                             <label>{{ __('search') }}</label>
-                            <input name="keyword" type="text" placeholder="{{ __('search') }}" class="form-control"
-                                value="{{ request('keyword') }}">
+                            <input name="nama_pelamar" id="nama_pelamar" type="text" placeholder="{{ __('search') }}" class="form-control"
+                                value="{{ request('nama_pelamar') }}">
                         </div>
                         <div class="col-4">
                             <label>{{ __('email_verification') }}</label>
-                            <select name="ev_status" class="form-control w-100-p">
-                                <option value="">
-                                    {{ __('all') }}
+                            <select name="ev_status" id="ev_status" class="form-control w-100-p">
+                                <option selected value="">
+                                    Pilih Status
                                 </option>
                                 <option {{ request('ev_status') == 'true' ? 'selected' : '' }} value="true">
-                                    {{ __('verified') }}
+                                    verified
                                 </option>
                                 <option {{ request('ev_status') == 'false' ? 'selected' : '' }} value="false">
-                                    {{ __('not_verified') }}
+                                    not_verified
                                 </option>
                             </select>
                         </div>
@@ -63,7 +63,40 @@
                                 </option>
                             </select>
                         </div>
-                    </div>
+                        <div class="col-4">
+                            <label>{{ __('Kecamatan') }}</label>
+                            <select name="kecamatan_filter" id="kecamatan_filter" class="form-control w-100-p">
+                                <option value="">Pilih Kecamatan</option>
+                                @foreach($kecamatan as $item)
+                                    <option value="{{ $item->id }}" {{ request('kecamatan_filter') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label>{{ __('Kabupaten') }}</label>
+                            <select name="kabupaten_filter" id="kabupaten_filter" class="form-control w-100-p">
+                                <option value="">Pilih Kabupaten</option>
+                                @foreach($kabupaten as $item)
+                                    <option value="{{ $item->id }}" {{ request('kabupaten_filter') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label>{{ __('Provinsi') }}</label>
+                            <select name="provinsi_filter" id="provinsi_filter" class="form-control w-100-p">
+                                <option value="">Pilih Provinsi</option>
+                                @foreach($provinsi as $item)
+                                    <option value="{{ $item->id }}" {{ request('provinsi_filter') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                 </form>
 
                 {{-- Table  --}}
@@ -82,6 +115,9 @@
                                 <th>{{ __('status') }}</th>
                                 @endif
                                 <th>{{ __('joined_date') }}</th>
+                                <th>Kabupaten</th>
+                                <th>Kecamatan</th>
+                                <th>Provinsi</th>
                                 @if (userCan('candidate.update') || userCan('candidate.delete'))
                                     <th width="12%">{{ __('action') }}</th>
                                 @endif
@@ -153,6 +189,15 @@
                                         @endif
                                         <td tabindex="0">
                                             {{ Carbon\Carbon::parse($candidate->created_at)->format('d M, Y') }}
+                                        </td>
+                                        <td tabindex="0">
+                                            <p>{{ $candidate->contactInfo->kecamatan->name }}</p>
+                                        </td>
+                                        <td tabindex="0">
+                                            <p>{{ $candidate->contactInfo->kabupaten->name }}</p>
+                                        </td>
+                                        <td tabindex="0">
+                                            <p>{{ $candidate->contactInfo->provinsi->name }}</p>
                                         </td>
                                         @if (userCan('candidate.update') || userCan('candidate.delete'))
                                             <td>
@@ -274,12 +319,45 @@
             download: "{{route('download_report_candidate')}}"
         };
         $(document).on('click', '.submit-download', function(e) {
+
+            let
+            nama_pelamar = $('#nama_pelamar').val(),
+                ev_status = $('#ev_status').val(),
+                kecamatan_filter = $('#kecamatan_filter').val(),
+                kabupaten_filter = $('#kabupaten_filter').val(),
+                provinsi_filter = $('#provinsi_filter').val(),
+                sort_by = $('#sort_by').val();
+                // console.log(kecamatan);
             let urlDownload = [];
 
-
             let finalUrl = url.download;
-            window.open(finalUrl);
+            finalUrl = finalUrl + '?';
+            console.log(nama_pelamar);
 
+            if (nama_pelamar) {
+                finalUrl = finalUrl + `&&nama_pelamar=${nama_pelamar}`;
+            }
+
+            if (ev_status) {
+                finalUrl = finalUrl + `&&ev_status=${ev_status}`;
+            }
+
+            if (sort_by) {
+                finalUrl = finalUrl + `&&sort_by=${sort_by}`;
+            }
+
+            if (kecamatan_filter) {
+                finalUrl = finalUrl + `&&kecamatan_filter=${kecamatan_filter}`;
+            }
+
+            if (kabupaten_filter) {
+                finalUrl = finalUrl + `&&kabupaten_filter=${kabupaten_filter}`;
+            }
+
+            if (provinsi_filter) {
+                finalUrl = finalUrl + `&&provinsi_filter=${provinsi_filter}`;
+            }
+            window.open(finalUrl);
 
             // console.log(finalUrl);
             // $('#formFilter').submit();

@@ -120,6 +120,11 @@ class Company extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function contactInfo()
+    {
+        return $this->belongsTo(contactInfo::class, 'user_id');
+    }
+
     public function jobs(): HasMany
     {
         return $this->hasMany(Job::class);

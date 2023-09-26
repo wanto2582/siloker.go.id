@@ -11,6 +11,10 @@ use App\Models\Education;
 use App\Models\Experience;
 use App\Models\Profession;
 use App\Models\ContactInfo;
+use App\Models\Kecamatan;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
+use App\Models\Negara;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\SkillTranslation;
@@ -49,9 +53,10 @@ class CandidateController extends Controller
 
     public function index(Request $request)
     {
+        // dd($request);
         abort_if(!userCan('candidate.view'), 403);
 
-        $query = Candidate::withCount('appliedJobs')->with('user','jobRole');
+        $query = Candidate::withCount('appliedJobs')->with('user','jobRole', 'contactInfo', 'contactInfo.kecamatan', 'contactInfo.kabupaten', 'contactInfo.provinsi', 'contactInfo.negara');
 
         // verified status
         if ($request->has('ev_status') && $request->ev_status != null) {
@@ -76,6 +81,30 @@ class CandidateController extends Controller
             });
         }
 
+        if ($request->kecamatan_filter && $request->kecamatan_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_kecamatan', 'LIKE', "%$request->kecamatan_filter%");
+            });
+        }
+
+        if ($request->kabupaten_filter && $request->kabupaten_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_kabupaten', 'LIKE', "%$request->kabupaten_filter%");
+            });
+        }
+
+        if ($request->provinsi_filter && $request->provinsi_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_provinsi', 'LIKE', "%$request->provinsi_filter%");
+            });
+        }
+
         // sortby
         if ($request->sort_by == 'latest' || $request->sort_by == null) {
             $query->latest();
@@ -84,16 +113,83 @@ class CandidateController extends Controller
         }
 
         $candidates = $query->paginate(10)->withQueryString();
+        $kecamatan = Kecamatan::all();
+        $kabupaten = Kabupaten::all();
+        $provinsi = Provinsi::all();
+        $negara = Negara::all();
         // dd($candidates);
 
-        return view('admin.candidate.index', compact('candidates'));
+        return view('admin.candidate.index', compact('candidates', 'kecamatan', 'kabupaten', 'provinsi', 'negara'));
     }
 
     public function downloadReportCandidate(Request $request)
     {
 
-        $dataReport = $this->candidateService->getReportCandidate();
-        // dd($dataReport);
+        // $dataReport = $this->candidateService->getReportCandidate();
+
+        $kecamatanFilter = $request->input('kecamatan_filter');
+        // dd($request->kabupaten_filter);
+        // abort_if(!userCan('candidate.view'), 403);
+
+        $query = Candidate::withCount('appliedJobs')->with('user','jobRole', 'contactInfo', 'contactInfo.kecamatan', 'contactInfo.kabupaten', 'contactInfo.provinsi', 'contactInfo.negara');
+
+        // verified status
+        if ($request->has('ev_status') && $request->ev_status != null) {
+            $ev_status = null;
+            if ($request->ev_status == 'true') {
+                $query->whereHas('user', function ($q) use ($ev_status) {
+                    $q->whereNotNull('email_verified_at');
+                });
+            } else {
+                $query->whereHas('user', function ($q) use ($ev_status) {
+                    $q->whereNull('email_verified_at');
+                });
+            }
+        }
+
+        if ($request->keyword && $request->keyword != null) {
+
+            $query->whereHas('user', function ($q) use ($request) {
+
+                $q->where('name', 'LIKE', "%$request->keyword%")
+                ->orWhere('email', 'LIKE', "%$request->keyword%");
+            });
+        }
+
+        if ($request->kecamatan_filter && $request->kecamatan_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_kecamatan', 'LIKE', "%$request->kecamatan_filter%");
+            });
+        }
+
+        if ($request->kabupaten_filter && $request->kabupaten_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_kabupaten', 'LIKE', "%$request->kabupaten_filter%");
+            });
+        }
+
+        if ($request->provinsi_filter && $request->provinsi_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_provinsi', 'LIKE', "%$request->provinsi_filter%");
+            });
+        }
+
+        // sortby
+        if ($request->sort_by == 'latest' || $request->sort_by == null) {
+            $query->latest();
+        } else {
+            $query->oldest();
+        }
+
+        $dataReport = $query->get();
+        // dd($candidates);
+
         $filename = 'report_candidate';
         return Excel::download(new ReportCandidate($dataReport, [] ), "$filename.xlsx");
 

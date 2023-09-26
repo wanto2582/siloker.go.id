@@ -92,6 +92,39 @@
                                     </option>
                                 </select>
                             </div>
+                        <div class="col-4">
+                            <label>{{ __('Kecamatan') }}</label>
+                            <select name="kecamatan_filter" id="kecamatan_filter" class="form-control w-100-p">
+                                <option value="">Pilih Kecamatan</option>
+                                @foreach($kecamatan as $item)
+                                    <option value="{{ $item->id }}" {{ request('kecamatan_filter') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label>{{ __('Kabupaten') }}</label>
+                            <select name="kabupaten_filter" id="kabupaten_filter" class="form-control w-100-p">
+                                <option value="">Pilih Kabupaten</option>
+                                @foreach($kabupaten as $item)
+                                    <option value="{{ $item->id }}" {{ request('kabupaten_filter') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label>{{ __('Provinsi') }}</label>
+                            <select name="provinsi_filter" id="provinsi_filter" class="form-control w-100-p">
+                                <option value="">Pilih Provinsi</option>
+                                @foreach($provinsi as $item)
+                                    <option value="{{ $item->id }}" {{ request('provinsi_filter') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                         </div>
                     </form>
 
@@ -104,6 +137,9 @@
                                     <th>{{ __('active') }} {{ __('job') }}</th>
                                     <th>{{ __('organization') }}/{{ __('country') }}</th>
                                     <th>{{ __('establishment_date') }}</th>
+                                    <th>Kabupaten</th>
+                                    <th>Kecamatan</th>
+                                    <th>Provinsi</th>
                                     @if (userCan('company.update'))
                                         <th>{{ __('account') }} {{ __('status') }}</th>
                                     @endif
@@ -140,6 +176,15 @@
                                         </td>
                                         <td>
                                             <p class="highlight mb-0">{{ $company->establishment_date ? date('j F, Y', strtotime($company->establishment_date)):'-' }}</p>
+                                        </td>
+                                        <td tabindex="0">
+                                            <p>{{ $company->contactInfo->kecamatan->name }}</p>
+                                        </td>
+                                        <td tabindex="0">
+                                            <p>{{ $company->contactInfo->kabupaten->name }}</p>
+                                        </td>
+                                        <td tabindex="0">
+                                            <p>{{ $company->contactInfo->provinsi->name }}</p>
                                         </td>
                                         @if (userCan('company.update'))
                                             <td tabindex="0">
@@ -292,12 +337,45 @@
             download: "{{route('download_report_company')}}"
         };
         $(document).on('click', '.submit-download', function(e) {
+
+            let
+            nama_pelamar = $('#keyword').val(),
+                ev_status = $('#ev_status').val(),
+                kecamatan_filter = $('#kecamatan_filter').val(),
+                kabupaten_filter = $('#kabupaten_filter').val(),
+                provinsi_filter = $('#provinsi_filter').val(),
+                sort_by = $('#sort_by').val();
+                // console.log(kecamatan);
             let urlDownload = [];
 
-
             let finalUrl = url.download;
-            window.open(finalUrl);
+            finalUrl = finalUrl + '?';
+            console.log(nama_pelamar);
 
+            if (nama_pelamar) {
+                finalUrl = finalUrl + `&&nama_pelamar=${nama_pelamar}`;
+            }
+
+            if (ev_status) {
+                finalUrl = finalUrl + `&&ev_status=${ev_status}`;
+            }
+
+            if (sort_by) {
+                finalUrl = finalUrl + `&&sort_by=${sort_by}`;
+            }
+
+            if (kecamatan_filter) {
+                finalUrl = finalUrl + `&&kecamatan_filter=${kecamatan_filter}`;
+            }
+
+            if (kabupaten_filter) {
+                finalUrl = finalUrl + `&&kabupaten_filter=${kabupaten_filter}`;
+            }
+
+            if (provinsi_filter) {
+                finalUrl = finalUrl + `&&provinsi_filter=${provinsi_filter}`;
+            }
+            window.open(finalUrl);
 
             // console.log(finalUrl);
             // $('#formFilter').submit();

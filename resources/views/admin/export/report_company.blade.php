@@ -76,7 +76,7 @@
             <th class="">Second Phone</th>
             <th class="">Email</th>
             <th class="">Second Email</th>
-            <th class="">Tanggal Establis</th>
+            <th class="">Tanggal Pendirian</th>
             <th class="">Tempat</th>
             <th class="">Alamat</th>
         </tr>
@@ -86,14 +86,14 @@
         @foreach($data as $item => $value)
         <tr>
             <td>{{($item+1)}}</td>
-            <td>{{$value->name}}</td>
-            <td>{{$value->phone}}</td>
-            <td>{{($value->secondary_phone ? $value->secondary_phone : '-')}}</td>
-            <td>{{$value->email}}</td>
-            <td>{{($value->secondary_email ? $value->secondary_email : '-')}}</td>
-            <td>{{$value->establishment_date}}</td>
+            <td>{{$value->user->name}}</td>
+            <td>{{($value->contactInfo->phone ? $value->contactInfo->phone : '-')}}</td>
+            <td>{{($value->contactInfo->secondary_phone ? $value->contactInfo->secondary_phone : '-')}}</td>
+            <td>{{($value->contactInfo->email ? $value->contactInfo->email : '-')}}</td>
+            <td>{{($value->contactInfo->secondary_email ? $value->contactInfo->secondary_email : '-')}}</td>
+            <td>{{ date('Y-m-d', strtotime($value->establishment_date)) }}</td>
             <td>{{$value->place}}</td>
-            <td>{{$value->address}}</td>
+            <td>{{$value->contactInfo->address}}</td>
         </tr>
         @endforeach
     </tbody>

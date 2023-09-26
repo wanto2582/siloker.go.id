@@ -7,6 +7,10 @@ use Faker\Factory;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\Candidate;
+use App\Models\Kecamatan;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
+use App\Models\Negara;
 use App\Models\TeamSize;
 use Illuminate\Support\Str;
 use App\Models\IndustryType;
@@ -40,9 +44,10 @@ class CompanyController extends Controller
 
     public function index(Request $request)
     {
+        // dd($request);
         abort_if(!userCan('company.view'), 403);
 
-        $query = Company::query();
+        $query = Company::query()->with('user', 'organization', 'contactInfo', 'contactInfo.kecamatan', 'contactInfo.kabupaten', 'contactInfo.provinsi', 'contactInfo.negara');
 
         // sortby
         if ($request->sort_by == 'latest' || $request->sort_by == null) {
@@ -85,15 +90,44 @@ class CompanyController extends Controller
             $query->where('industry_type_id', $request->industry_type);
         }
 
+        if ($request->kecamatan_filter && $request->kecamatan_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_kecamatan', 'LIKE', "%$request->kecamatan_filter%");
+            });
+        }
+
+        if ($request->kabupaten_filter && $request->kabupaten_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_kabupaten', 'LIKE', "%$request->kabupaten_filter%");
+            });
+        }
+
+        if ($request->provinsi_filter && $request->provinsi_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_provinsi', 'LIKE', "%$request->provinsi_filter%");
+            });
+        }
+
         $companies = $query->with('organization:id,name', 'user')->paginate(10)->through(function($company){
             $company->active_jobs = Job::where('company_id', $company->id)->openPosition()->count();
             return $company;
         });
+        // dd($companies);
 
         $industry_types = IndustryType::all();
         $organization_types = OrganizationType::all();
+        $kecamatan = Kecamatan::all();
+        $kabupaten = Kabupaten::all();
+        $provinsi = Provinsi::all();
+        $negara = Negara::all();
 
-        return view('admin.company.index', compact('companies', 'industry_types', 'organization_types'));
+        return view('admin.company.index', compact('companies', 'industry_types', 'organization_types', 'kecamatan', 'kabupaten', 'provinsi', 'negara'));
     }
 
     public function downloadCompanyCandidate(Request $request)
@@ -113,7 +147,66 @@ class CompanyController extends Controller
     public function downloadReportCompany(Request $request)
     {
 
-        $dataReport = $this->companyService->getReportCompany();
+
+        $query = Company::query()->with('user', 'organization', 'contactInfo', 'contactInfo.kecamatan', 'contactInfo.kabupaten', 'contactInfo.provinsi', 'contactInfo.negara');
+
+        // verified status
+        if ($request->has('ev_status') && $request->ev_status != null) {
+            $ev_status = null;
+            if ($request->ev_status == 'true') {
+                $query->whereHas('user', function ($q) use ($ev_status) {
+                    $q->whereNotNull('email_verified_at');
+                });
+            } else {
+                $query->whereHas('user', function ($q) use ($ev_status) {
+                    $q->whereNull('email_verified_at');
+                });
+            }
+        }
+
+        if ($request->keyword && $request->keyword != null) {
+
+            $query->whereHas('user', function ($q) use ($request) {
+
+                $q->where('name', 'LIKE', "%$request->keyword%")
+                ->orWhere('email', 'LIKE', "%$request->keyword%");
+            });
+        }
+
+        if ($request->kecamatan_filter && $request->kecamatan_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_kecamatan', 'LIKE', "%$request->kecamatan_filter%");
+            });
+        }
+
+        if ($request->kabupaten_filter && $request->kabupaten_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_kabupaten', 'LIKE', "%$request->kabupaten_filter%");
+            });
+        }
+
+        if ($request->provinsi_filter && $request->provinsi_filter != null) {
+
+            $query->whereHas('contactInfo', function ($q) use ($request) {
+
+                $q->where('id_provinsi', 'LIKE', "%$request->provinsi_filter%");
+            });
+        }
+
+        // sortby
+        if ($request->sort_by == 'latest' || $request->sort_by == null) {
+            $query->latest();
+        } else {
+            $query->oldest();
+        }
+
+        $dataReport = $query->get();
+        // dd($dataReport);
+        // $dataReport = $this->companyService->getReportCompany();
         // dd($dataReport);
         $filename = 'report_company';
         return Excel::download(new ReportCompany($dataReport, [] ), "$filename.xlsx");
