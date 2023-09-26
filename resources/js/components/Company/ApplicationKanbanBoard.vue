@@ -8,8 +8,8 @@
                 <div class="height-100vh">
                     <div class="column-title d-flex justify-content-between align-items-center">
                         <h4>{{ applicationGroup.name }} ({{ applicationGroup.applications.length }})</h4>
-                        <group-dropdown v-if="applicationGroup.is_deleteable" :application-group="applicationGroup"
-                            @edit-group="editGroup" />
+                        <!-- <group-dropdown v-if="applicationGroup.is_deleteable" :application-group="applicationGroup"
+                            @edit-group="editGroup" /> -->
                     </div>
                     <draggable class="list-group kanban-column" v-model="applicationGroup.applications"
                         v-bind="taskDragOptions" @end="handleTaskMoved" ghost-class="ghost" drag-class="dragg">
